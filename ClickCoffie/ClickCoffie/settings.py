@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
+import os
 
 from pathlib import Path
 
@@ -28,16 +29,24 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+#imagenes
+
+MEDIA_URL = '/imgs/'  # URL pública para acceder a las imágenes
+MEDIA_ROOT = os.path.join(BASE_DIR, 'imgs')  # Ruta física donde se guardan
+
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'tienda',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -50,6 +59,19 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'ClickCoffie.urls'
+
+JAZZMIN_SETTINGS = {
+    "site_title": "ClickCoffie",
+    "site_header": "ClickCoffie Admin",
+    "site_brand": "ClickCoffie Admin",
+    "site_logo": "/imgs/imglogo.png",  
+    "welcome_sign": "Bienvenido al panel de ClickCoffie",
+    "show_sidebar": True,
+    "user_avatar": None,
+    "site_logo_classes": "img-circle",
+    "topmenu_links": [],
+    "theme": "solar",              
+}
 
 TEMPLATES = [
     {
@@ -102,7 +124,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-col'
 
 TIME_ZONE = 'UTC'
 
@@ -120,3 +142,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
