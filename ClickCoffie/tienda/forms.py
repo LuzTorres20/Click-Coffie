@@ -20,6 +20,7 @@ class RegistroUsuarioForm (UserCreationForm):
         user.last_name = self.cleaned_data['apellidos']
         user.email = self.cleaned_data['email']
         user.is_staff = False
+        user.is_superuser = False 
         if commit:
             user.save()
         return user

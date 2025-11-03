@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
-import pymysql
+#import pymysql
 #pymysql.install_as_MySQLdb()
 
 from pathlib import Path
@@ -66,7 +66,7 @@ JAZZMIN_SETTINGS = {
     "site_title": "ClickCoffie",
     "site_header": "ClickCoffie Admin",
     "site_brand": "ClickCoffie Admin",
-    "site_logo": "/imgs/imglogo.png",  
+    "site_logo": "static/imgs/logo.png",  
     "welcome_sign": "Bienvenido al panel de ClickCoffie",
     "show_sidebar": True,
     "user_avatar": None,
@@ -98,10 +98,16 @@ WSGI_APPLICATION = 'ClickCoffie.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'click_coffie',
+        'USER': 'root',                 
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '3306',
+        'OPTIONS': {},
     }
 }
+
 
 
 # Password validation
