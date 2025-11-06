@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
-import pymysql
+#import pymysql
 #pymysql.install_as_MySQLdb()
 
 from pathlib import Path
@@ -62,17 +62,21 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'ClickCoffie.urls'
 
+
+
+
 JAZZMIN_SETTINGS = {
     "site_title": "ClickCoffie",
     "site_header": "ClickCoffie Admin",
     "site_brand": "ClickCoffie Admin",
-    "site_logo": "/imgs/imglogo.png",  
+    "site_logo": "imgs/logo.png", 
+    "site_logo_classes": "custom-logo-size",
     "welcome_sign": "Bienvenido al panel de ClickCoffie",
     "show_sidebar": True,
     "user_avatar": None,
     "site_logo_classes": "img-circle",
     "topmenu_links": [],
-    "theme": "solar",              
+    "theme": "solar",          
 }
 
 TEMPLATES = [
@@ -98,10 +102,16 @@ WSGI_APPLICATION = 'ClickCoffie.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'click_coffie',
+        'USER': 'root',                 
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '3306',
+        'OPTIONS': {},
     }
 }
+
 
 
 # Password validation
@@ -138,7 +148,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'tienda', 'static'),
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
