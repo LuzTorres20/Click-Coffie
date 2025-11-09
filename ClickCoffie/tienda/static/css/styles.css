@@ -1,0 +1,25 @@
+body {
+    background-image: url("../imgs/fondoformularios.jpeg"); /* Ruta de tu imagen */
+    background-size: auto;         /* Hace que la imagen ocupe toda la pantalla */
+    background-position: center;    /* Centra la imagen */
+    background-attachment: fixed;   /* Fija el fondo al hacer scroll */
+    min-height: 100vh;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;                     /* ocupa toda la pantalla */
+    background: rgba(0, 0, 0, 0.5); /* negro con 50% de opacidad */
+    z-index: 0;                   /* debajo del contenido */
+}
+
+.circle-img {
+            width: 100px;          /* tamaño del círculo */
+            height: 100px;
+            object-fit: cover;     /* ajusta la imagen dentro del círculo */
+            border-radius: 50%;    /* hace la forma circular */
+            border: 3px solid #ccc; /* opcional, borde decorativo */
+            display: block;
+            margin: 0 auto 15px;   /* centra la imagen */
+        }
