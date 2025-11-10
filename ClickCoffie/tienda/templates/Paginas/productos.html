@@ -43,7 +43,7 @@
         {% endfor %}
     </div>
 </div>
-
+<script> document.querySelectorAll('.producto').forEach(producto => { const disminuir = producto.querySelector('.disminuir'); const aumentar = producto.querySelector('.aumentar'); const cantidad = producto.querySelector('.cantidad'); let count = 1; disminuir.addEventListener('click', () => { if(count > 1) count--; cantidad.textContent = count; }); aumentar.addEventListener('click', () => { count++; cantidad.textContent = count; }); }); </script>
 
 
 {% endblock %}
