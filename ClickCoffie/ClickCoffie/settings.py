@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'widget_tweaks',
     'tienda',
 ]
 
@@ -95,7 +96,9 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'ClickCoffie.wsgi.application'
+LOGOUT_REDIRECT_URL = '/login/'
 
+    
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases

@@ -2,6 +2,23 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
+class LoginForm(forms.Form):
+    username = forms.CharField(
+        label='Usuario',
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Username',
+            'aria-label': 'Username',
+            'aria-describedby': 'basic-addon1'
+        })
+    )
+    password = forms.CharField(
+        label='Contraseña',
+        widget=forms.PasswordInput(attrs={'class': 'form-control'})
+    )
+
+
+
 #formulario para crear usuarios nuevos (estos no tienen acceso a la parte de administrador)
 class RegistroUsuarioForm (UserCreationForm):
     usuario = forms.CharField(max_length=50, required=True, label="Usuario")

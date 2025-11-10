@@ -1,10 +1,15 @@
 {% extends 'Paginas/base.html' %}
+{% load static %}
 
-{% block title %}Click&Coffie{% endblock %}
-
+{% block title %}Inicio{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/inicio.css' %}">{% endblock %}
 {% block content %}
-<div class="container mt-5">
-    <h2>Pagina de inicio</h2>
-    
+<div class="imagen-con-texto">
+  <img src="{% static 'imgs/fondoinicio.png' %}" alt="Banner de café">
+  <div class="texto-superpuesto">
+    <h2>Bienvenido a Click & Coffie</h2>
+    <p>Pide tus productos de cafeteria sin tener que moverte de tu clase</p>
+  </div>
 </div>
+
 {% endblock %}
