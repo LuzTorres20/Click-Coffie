@@ -1,0 +1,58 @@
+    {% extends 'Paginas/base.html' %}
+    {% load static %}
+
+    {% block title %}Productos{% endblock %}
+    {% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/inicio.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    {% endblock %}
+    {% block content %}
+    <div class="imagen-con-texto">
+        <img src="{% static 'imgs/fondoinicio.png' %}" alt="Banner de café">
+        <div class="texto-superpuesto">
+            <h2>Aqui puedes escoger tus productos</h2>
+        </div>
+    </div>
+    <div class="container">
+
+        <div class="container-pro">
+            {% for i in Inventario %}
+                <div class="producto">
+                <img src="{% if i.Imagen %}{{ i.Imagen.url }}{% else %}{% static 'imgs/default.png' %}{% endif %}" alt="{{ i.Nombre }}">
+                <div class="info">
+                    <h3>{{ i.Nombre }}</h3>
+                    {% if i.Descripcion %}<p>{{ i.Descripcion }}</p>{% endif %}
+                    <span class="precio">${{ i.Precio }}</span>
+                </div>
+                <div class="acciones">
+                    <i class="disminuir fa-solid fa-minus"></i>
+                    <span class="cantidad">1</span>
+                    <i class="aumentar fa-solid fa-plus"></i>
+                </div>
+                <button class="add-cart">Agregar al carrito</button>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+    document.querySelectorAll('.producto').forEach(producto => {
+        const disminuir = producto.querySelector('.disminuir');
+        const aumentar = producto.querySelector('.aumentar');
+        const cantidad = producto.querySelector('.cantidad');
+        let count = 1;
+
+        disminuir.addEventListener('click', () => {
+        if(count > 1) count--;
+        cantidad.textContent = count;
+        });
+
+        aumentar.addEventListener('click', () => {
+        count++;
+        cantidad.textContent = count;
+        });
+    });
+    </script>
+
+    {% endblock %}

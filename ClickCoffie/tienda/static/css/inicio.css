@@ -1,0 +1,255 @@
+  body {
+    font-family: 'Century Gothic', sans-serif;
+    background-color: #f8f5f2;
+    margin: 0;
+    padding: 0;
+    color: #333;
+  }
+
+  nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+
+  nav a:hover {
+    color: #ffcf91;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+  }
+
+  h2 {
+    text-align: center;
+    color: #6f4e37;
+    margin-bottom: 30px;
+  }
+
+  .productos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 20px;
+  }
+
+  .producto {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+  }
+
+  .producto:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+  }
+
+  .producto img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .acciones {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 8px 0;
+    background-color: #f3eee9;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .producto:hover .acciones {
+    opacity: 1;
+  }
+
+  .acciones i {
+    cursor: pointer;
+    background-color: #6f4e37;
+    color: white;
+    border-radius: 50%;
+    padding: 6px 8px;
+    font-size: 0.9em;
+    transition: background-color 0.3s;
+  }
+
+  .acciones i:hover {
+    background-color: #8b5e3c;
+  }
+
+  .info {
+    padding: 15px;
+  }
+
+  .info h3 {
+    margin: 0 0 10px 0;
+    color: #4a2c19;
+  }
+
+  .info p {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 10px;
+  }
+
+  .precio {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #6f4e37;
+  }
+
+  .boton {
+    display: inline-block;
+    margin-top: 10px;
+    background-color: #6f4e37;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+
+  .boton:hover {
+    background-color: #8b5e3c;
+  }
+
+  footer {
+    padding: 20px;
+    text-align: center;
+    background-color: #6f4e37;
+    color: #fff;
+  }
+
+
+.imagen-con-texto {
+  position: relative;
+  width: 100%;
+  max-height: auto;
+  overflow: hidden;
+}
+
+.imagen-con-texto img {
+  width: 100%;
+  height: 450px;
+  object-fit: cover;
+  filter: brightness(0.6); /* oscurece un poco la imagen para resaltar el texto */
+}
+
+.texto-superpuesto {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+}
+
+.texto-superpuesto h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #f6c028;
+}
+
+.texto-superpuesto p {
+  font-size: 1.2rem;
+}
+.container-pro {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+.producto {
+    background: #fff;
+    width: 220px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    overflow: hidden;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    position: relative; /* necesario si queremos posicionar elementos internos */
+}
+
+.producto img {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    background: #f9f5f0;
+}
+
+.info {
+    padding: 15px;
+}
+
+.info h3 {
+    margin: 10px 0 5px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.info p {
+    font-size: 14px;
+    color: #555;
+}
+
+.precio {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Botones fijos siempre visibles */
+.acciones {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    opacity: 1; /* siempre visibles */
+    background-color: transparent; 
+}
+
+.acciones i {
+    cursor: pointer;
+    font-size: 20px;
+    border: 1px solid #f6c028;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    line-height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f6c028;
+    transition: all 0.2s ease;
+}
+
+.acciones i:hover {
+    background-color: #f6c028;
+}
+
+/* Botón de agregar al carrito */
+.add-cart {
+    margin: 0 15px 15px 15px;
+    padding: 8px 12px;
+    border: 3px solid  #6f4e37;
+    border-radius: 5px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color:  #6f4e37;
+}
+
+.add-cart:hover {
+    border: 3px solid  #ec5126;
+    background:#ec5126;
+    color: #fff;
+}
