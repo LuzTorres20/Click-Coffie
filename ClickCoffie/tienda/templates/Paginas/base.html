@@ -53,7 +53,13 @@
             {% else %}
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                <a class="nav-link" href="{% url 'logout' %}">Cerrar sesión</a>
+                     <a class="nav-link" href="{% url 'ver_carrito' %}" style="color: aliceblue;">
+            <i class="fa-solid fa-cart-shopping"></i> Carrito
+        </a>
+                 </li>
+
+                <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}"  style="color: aliceblue;">Cerrar sesión</a>
                 </li>
             </ul>
             {% endif %}

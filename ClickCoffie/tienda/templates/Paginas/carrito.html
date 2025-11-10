@@ -1,0 +1,181 @@
+{% extends 'Paginas/base.html' %}
+{% load static %}
+
+{% block title %}Mi Carrito{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/inicio.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+    .carrito-container {
+        padding: 20px;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .carrito-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 15px;
+        background: #fff;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    }
+
+    .carrito-img {
+        width: 90px;
+        height: 90px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-right: 20px;
+    }
+
+    .carrito-info {
+        flex-grow: 1;
+    }
+
+    .carrito-info h3 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .carrito-info p {
+        margin: 5px 0;
+        font-size: 14px;
+        color: #444;
+    }
+
+    .acciones {
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    .acciones i {
+        cursor: pointer;
+        padding: 5px 10px;
+        font-size: 18px;
+    }
+
+    .acciones .cantidad {
+        margin: 0 10px;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .item-subtotal {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+        margin-left: 20px;
+    }
+
+    .resumen {
+        text-align: right;
+        padding: 20px;
+        font-size: 20px;
+    }
+
+    .btn-comprar {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 12px 25px;
+        background: #8B4513;
+        color: white;
+        font-size: 18px;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: background 0.3s ease;
+    }
+
+    .btn-comprar:hover {
+        background: #5c2e0f;
+    }
+
+    .vacio {
+        text-align: center;
+        font-size: 22px;
+        padding: 40px;
+        color: #555;
+        font-weight: bold;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="imagen-con-texto">
+    <img src="{% static 'imgs/fondoinicio.png' %}" alt="Banner">
+    <div class="texto-superpuesto">
+        <h2>Tu carrito de compras</h2>
+    </div>
+</div>
+
+<div class="carrito-container">
+
+    {% if carrito %}
+        {% for item in carrito %}
+        <div class="carrito-item">
+            <img src="{% if item.producto.Imagen %}{{ item.producto.Imagen.url }}{% else %}{% static 'imgs/default.png' %}{% endif %}"
+                alt="{{ item.producto.Nombre }}" class="carrito-img">
+
+            <div class="carrito-info">
+                <h3>{{ item.producto.Nombre }}</h3>
+                {% if item.producto.Descripcion %}
+                <p>{{ item.producto.Descripcion }}</p>
+                {% endif %}
+                <p>Precio: ${{ item.producto.Precio }}</p>
+
+                <div class="acciones">
+                    <!-- Disminuir -->
+                    <form method="POST" action="{% url 'modificar_cantidad' item.id 'menos' %}">
+                        {% csrf_token %}
+                        <button type="submit" style="background:none;border:none;">
+                            <i class="fa-solid fa-minus"></i>
+                        </button>
+                    </form>
+
+                    <span class="cantidad">{{ item.cantidad }}</span>
+
+                    <!-- Aumentar -->
+                    <form method="POST" action="{% url 'modificar_cantidad' item.id 'mas' %}">
+                        {% csrf_token %}
+                        <button type="submit" style="background:none;border:none;">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                    </form>
+
+                    <!-- Eliminar -->
+                    <form method="POST" action="{% url 'eliminar_item' item.id %}">
+                        {% csrf_token %}
+                        <button type="submit" style="background:none;border:none;color:red;">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="item-subtotal">
+                ${{ item.subtotal }}
+            </div>
+        </div>
+        {% endfor %}
+
+        <div class="resumen">
+            Total: ${{ total }}<br>
+            <a href="{% url 'procesar_compra' %}" class="btn-comprar">Comprar</a>
+        </div>
+
+    {% else %}
+        <div class="vacio">
+            Tu carrito está vacío ☕  
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %}

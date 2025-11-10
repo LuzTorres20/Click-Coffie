@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Categoria_producto (models.Model):
     idCategoria = models.AutoField(primary_key=True)
@@ -21,3 +22,17 @@ class Inventario (models.Model):
     def __str__(self):
         return self.Nombre
     
+class CarritoItem(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    producto = models.ForeignKey(Inventario, on_delete=models.CASCADE)
+    cantidad = models.PositiveIntegerField(default=1)
+    vendido = models.BooleanField(default=False)
+    fecha_creacion = models.DateField(auto_now_add=True)
+
+    def subtotal(self):
+        return self.producto.Precio * self.cantidad
+
+    def __str__(self):
+        return f"{self.usuario.username} - {self.producto.Nombre}"
+    
+
