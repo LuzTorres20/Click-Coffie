@@ -27,9 +27,12 @@ class CarritoItem(models.Model):
     producto = models.ForeignKey(Inventario, on_delete=models.CASCADE)
     cantidad = models.PositiveIntegerField(default=1)
     vendido = models.BooleanField(default=False)
+    fecha_creacion = models.DateField(auto_now_add=True)
 
     def subtotal(self):
         return self.producto.Precio * self.cantidad
 
     def __str__(self):
         return f"{self.usuario.username} - {self.producto.Nombre}"
+    
+
