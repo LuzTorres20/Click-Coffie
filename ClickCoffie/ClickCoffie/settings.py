@@ -34,11 +34,14 @@ ALLOWED_HOSTS = [
     'laterigrade-margene-unsnobbishly.ngrok-free.dev',
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://laterigrade-margene-unsnobbishly.ngrok-free.dev',
+]
 
 #imagenes
 
-MEDIA_URL = '/imgs/'  # URL pública para acceder a las imágenes
-MEDIA_ROOT = os.path.join(BASE_DIR, 'imgs')  # Ruta física donde se guardan
+MEDIA_URL = '/media/'  # URL pública para acceder a las imágenes
+MEDIA_ROOT = BASE_DIR / 'media'  # Ruta física donde se guardan
 
 # Application definition
 

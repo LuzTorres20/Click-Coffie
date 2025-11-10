@@ -2,67 +2,79 @@
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Click&Coffie{% endblock %}</title>
 
     <!-- Bootstrap CSS -->
-     
+
     <link rel="icon" href="{% static 'imgs/logo-removebg-preview.png' %}" type="image/png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-..." crossorigin="anonymous">
-   <!----> <link rel="stylesheet" href="{% static 'css/inicio.css' %}">
+    <!---->
+    <link rel="stylesheet" href="{% static 'css/inicio.css' %}">
 
     {% block extra_css %}{% endblock %}
 </head>
+
 <body>
 
     <nav class="navbar navbar-expand-lg" style="background-color: #613c00; ">
-        
+
 
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-            <img src="{% static 'imgs/logo-removebg-preview.png' %}" alt="Logo" width="70" height="70" class="d-inline-block align-text-top">
+                <img src="{% static 'imgs/logo-removebg-preview.png' %}" alt="Logo" width="70" height="70"
+                    class="d-inline-block align-text-top">
             </a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarText">
-            <!-- Enlaces del lado izquierdo -->
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="{% url 'inicio' %}" style="color: aliceblue;">Inicio</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="{% url 'productos' %}" style="color: aliceblue;">Productos</a>
-                </li>
-            </ul>
+                <!-- Enlaces del lado izquierdo -->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{% url 'inicio' %}"
+                            style="color: aliceblue;">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'productos' %}" style="color: aliceblue;">Productos</a>
+                    </li>
+                </ul>
 
-            {% if not user.is_authenticated %}
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                <a class="nav-link " href="{% url 'login' %}" style="color: aliceblue;">Login</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="{% url 'registro' %}" style="color: aliceblue;">Registrarse</a>
-                </li>
-            </ul>
-            {% else %}
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                     <a class="nav-link" href="{% url 'ver_carrito' %}" style="color: aliceblue;">
-            <i class="fa-solid fa-cart-shopping"></i> Carrito
-        </a>
-                 </li>
+                {% if not user.is_authenticated %}
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link " href="{% url 'login' %}" style="color: aliceblue;">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'registro' %}" style="color: aliceblue;">Registrarse</a>
+                    </li>
+                </ul>
+                {% else %}
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'ver_carrito' %}" style="color: aliceblue;">
+                            <i class="fa-solid fa-cart-shopping"></i> Carrito
+                        </a>
+                    </li>
 
-                <li class="nav-item">
-                <a class="nav-link" href="{% url 'logout' %}"  style="color: aliceblue;">Cerrar sesión</a>
-                </li>
-            </ul>
-            {% endif %}
+                    <li class="nav-item">
+                        <form method="POST" action="{% url 'logout' %}" style="display:inline; ">
+                            {% csrf_token %}
+                            <button type="submit" class="nav-link btn btn-link p-0"
+                                style="color: aliceblue; text-decoration: none; margin-top: 8px;">
+                                Cerrar sesión
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+                {% endif %}
             </div>
         </div>
     </nav>
@@ -70,13 +82,14 @@
 
     {% block content %}{% endblock %}
 
-<footer>
-    <p>Click & Coffie</p>
-</footer>
+    <footer>
+        <p>Click & Coffie</p>
+    </footer>
     <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
-        integrity="sha384-..." crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-..."
+        crossorigin="anonymous"></script>
 
     {% block extra_js %}{% endblock %}
 </body>
+
 </html>
