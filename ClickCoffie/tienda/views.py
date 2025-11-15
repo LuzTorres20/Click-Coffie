@@ -10,6 +10,7 @@ from .models import CarritoItem
 from .models import Inventario, CarritoItem
 from django.db.models import F, Sum
 from django.views.decorators.http import require_POST
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -18,6 +19,19 @@ def registrar_usuario(request):
     if request.method == "POST":
         form = RegistroUsuarioForm(request.POST)
         if form.is_valid():
+
+            username = form.cleaned_data.get("usuario")
+            email = form.cleaned_data.get("email")
+
+            if User.objects.filter(username=username).exists():
+                messages.error(request, "El nombre de usuario ya existe, elige otro.")
+                return render(request, "formularios/RegistroUsuarios.html", {"form": form})
+
+            if User.objects.filter(email=email).exists():
+                messages.error(request, "El correo ya está registrado.")
+                return render(request, "formularios/RegistroUsuarios.html", {"form": form})
+            
+
             form.save()
             messages.success(request, "El usuario fue registrado correctamente")
             return redirect('/login/')
@@ -149,3 +163,10 @@ def procesar_compra(request):
     # Aquí podrías agregar lógica adicional como generar factura, envío, etc.
 
     return redirect('inicio')  # redirige a la página principal
+
+@login_required
+def pasarela_pago(request):
+    carrito = CarritoItem.objects.filter(usuario=request.user, vendido=False)
+    total = sum(item.cantidad * item.producto.Precio for item in carrito)
+
+    return render(request, "Paginas/pasarela_falsa.html", {"total": total})

@@ -1,0 +1,12 @@
+<h2>Simulador de Pago</h2>
+
+<p>Total a pagar: <strong>${{ total }}</strong></p>
+
+<p>Esto es una pasarela de pago falsa. Presiona el botón para completar la compra.</p>
+
+<form method="POST" action="{% url 'confirmar_pago' %}">
+    {% csrf_token %}
+    <button type="submit" style="padding:10px; background:green; color:white;">
+        Confirmar pago
+    </button>
+</form>
