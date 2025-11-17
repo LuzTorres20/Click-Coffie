@@ -157,6 +157,16 @@ def procesar_compra(request):
     # Marcar todos los items del carrito del usuario como vendidos
     carrito = CarritoItem.objects.filter(usuario=request.user, vendido=False)
     for item in carrito:
+
+        producto = item.producto
+
+        if producto.CantidadActual >=item.cantidad:
+            producto.CantidadActual -= item.cantidad
+        else:
+            producto.CantidadActual = 0
+        
+        producto.save
+
         item.vendido = True
         item.save()
     

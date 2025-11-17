@@ -7,8 +7,9 @@ admin.site.register(Categoria_producto)
 
 @admin.register(Inventario)
 class InventarioAdmin (admin.ModelAdmin):
-    list_display = ('idProducto', 'imagen_tag','Nombre', 'Categoria', 'Precio')
+    list_display = ('idProducto', 'imagen_tag','Nombre', 'Categoria', 'Precio',  'CantidadActual' )
     search_fields = ('Nombre', 'Categoria')
+    list_filter = ('Categoria',)
 
     def imagen_tag(self, obj):
             if obj.Imagen:
@@ -19,3 +20,4 @@ class InventarioAdmin (admin.ModelAdmin):
 @admin.register(CarritoItem)
 class CarritoItemAdmin(admin.ModelAdmin):
     list_display = ('usuario', 'producto', 'cantidad', 'vendido', 'fecha_creacion')
+    list_filter = ('usuario',)
