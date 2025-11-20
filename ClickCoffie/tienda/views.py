@@ -1,3 +1,4 @@
+from datetime import timezone
 from django.shortcuts import render, redirect
 from django.contrib.auth.views import LoginView
 from .models import Inventario
@@ -5,7 +6,7 @@ from .forms import RegistroUsuarioForm
 from django.contrib import messages
 from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.utils.timezone import now
+from django.utils import timezone
 from .models import CarritoItem
 from .models import Inventario, CarritoItem
 from django.db.models import F, Sum
@@ -53,8 +54,8 @@ class CustomLoginView(LoginView):
 def inicio(request):
     return render(request, "Paginas/inicio.html")
 
-def productos(request):
-    productos = Inventario.objects.all() 
+def productos(request):    
+    productos = Inventario.objects.filter(CantidadActual__gt=F('StockMinimo'))
     return render(request, "Paginas/productos.html", {'Inventario': productos})
 
 @login_required
@@ -153,26 +154,49 @@ def eliminar_item(request, item_id):
     return redirect('ver_carrito')  # redirige al carrito
 
 @login_required
-def procesar_compra(request):
-    # Marcar todos los items del carrito del usuario como vendidos
+def pago_falso(request):
     carrito = CarritoItem.objects.filter(usuario=request.user, vendido=False)
-    for item in carrito:
+    total = sum(item.subtotal() for item in carrito)
 
+    return render(request, "Paginas/pago_falso.html", {
+        "carrito": carrito,
+        "total": total
+    })
+
+
+@login_required
+def procesar_compra(request):
+
+    carrito = CarritoItem.objects.filter(usuario=request.user, vendido=False)
+
+    # Calcular total
+    total = sum(item.producto.Precio * item.cantidad for item in carrito)
+
+    # Generar factura con ID único
+    factura = {
+        "usuario": request.user.username,
+        "fecha": timezone.now(),
+        "items": carrito,
+        "total": total,
+    }
+
+    # Descontar inventario y marcar como vendido
+    for item in carrito:
         producto = item.producto
 
-        if producto.CantidadActual >=item.cantidad:
+        if producto.CantidadActual >= item.cantidad:
             producto.CantidadActual -= item.cantidad
         else:
             producto.CantidadActual = 0
-        
-        producto.save
+
+        producto.save()   # <-- aquí
 
         item.vendido = True
         item.save()
-    
-    # Aquí podrías agregar lógica adicional como generar factura, envío, etc.
 
-    return redirect('inicio')  # redirige a la página principal
+    # Mostrar factura
+    return render(request, "Paginas/factura.html", factura)
+
 
 @login_required
 def pasarela_pago(request):

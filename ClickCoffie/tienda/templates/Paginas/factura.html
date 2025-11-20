@@ -1,0 +1,35 @@
+{% extends 'Paginas/base.html' %}
+{% block title %}Factura{% endblock %}
+
+{% block content %}
+<div style="max-width:600px;margin:40px auto;padding:20px;border:1px solid #ddd;border-radius:10px;text-align:center; background-color: #fff;">
+    <h2>Factura de Compra</h2>
+    <p><strong>Cliente:</strong> {{ usuario }}</p>
+    <p><strong>Fecha:</strong> {{ fecha }}</p>
+
+    <h3>Detalles</h3>
+    <table style="width:100%;border-collapse:collapse;">
+        <tr style="border-bottom:1px solid #ddd;">
+            <th>Producto</th>
+            <th>Cant</th>
+            <th>Precio</th>
+            <th>Subtotal</th>
+        </tr>
+
+        {% for item in items %}
+        <tr>
+            <td>{{ item.producto.Nombre }}</td>
+            <td>{{ item.cantidad }}</td>
+            <td>${{ item.producto.Precio }}</td>
+            <td>${{ item.subtotal }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2 style="text-align:right;">Total: ${{ total }}</h2>
+
+    <a href="{% url 'inicio' %}" style="padding:10px 20px;background:#8B4513;color:white;border-radius:8px;text-decoration:none;">
+        Volver al Inicio
+    </a>
+</div>
+{% endblock %}
