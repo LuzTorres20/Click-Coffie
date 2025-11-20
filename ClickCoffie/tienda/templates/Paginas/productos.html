@@ -19,9 +19,9 @@
 
     <div class="container-pro">
         {% for i in Inventario %}
-        <div class="producto">
+        <div class="producto"data-stock="{{ i.CantidadActual }}">
             <img src="{% if i.Imagen %}{{ i.Imagen.url }}{% else %}{% static 'imgs/default.png' %}{% endif %}"
-                alt="{{ i.Nombre }}">
+                alt="{{ i.Nombre }}" style="background-color: aliceblue;">
             <div class="info">
                 <h3>{{ i.Nombre }}</h3>
                 {% if i.Descripcion %}<p>{{ i.Descripcion }}</p>{% endif %}
@@ -52,6 +52,58 @@
 
 {% block extra_js %}
 <script src="{% static 'js/producto.js' %}"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var productos = document.querySelectorAll('.producto');
+
+    productos.forEach(function(producto) {
+        var disminuir = producto.querySelector('.disminuir');
+        var aumentar = producto.querySelector('.aumentar');
+        var cantidadSpan = producto.querySelector('.cantidad');
+        var cantidadInput = producto.querySelector('.cantidad-input');
+
+        var stock = parseInt(producto.dataset.stock); // stock disponible
+        var count = 1;
+
+        var botonAgregar = producto.querySelector('.add-cart');
+
+        // Deshabilitar botón si stock = 0
+        if (stock <= 0 && botonAgregar) {
+            botonAgregar.disabled = true;
+            botonAgregar.textContent = 'Agotado';
+            aumentar.disabled = true; // También deshabilitar +
+        }
+
+        // Inicialmente si solo hay 1 unidad, mantener habilitado/disminuir
+        if (stock <= 1) {
+            aumentar.disabled = stock <= 1;
+        }
+
+        disminuir.addEventListener('click', function() {
+            if (count > 1) {
+                count--;
+                cantidadSpan.textContent = count;
+                cantidadInput.value = count;
+                aumentar.disabled = false; // Rehabilitar botón + al disminuir
+            }
+        });
+
+        aumentar.addEventListener('click', function() {
+            if (count < stock) {
+                count++;
+                cantidadSpan.textContent = count;
+                cantidadInput.value = count;
+
+                if (count >= stock) {
+                    aumentar.disabled = true; // Deshabilitar + al llegar al stock máximo
+                }
+            }
+        });
+    });
+});
+</script>
 {% endblock %}
+
     
 {% endblock %}
